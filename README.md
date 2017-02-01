@@ -4,5 +4,5 @@
 
 ## Discription
 This code is for Lab 2 class ESE566A Modern System-on-Chip Design, Spring 2017, Washington University.
-The file multiplier.v in pipelined folder is the template for your design. 
+The file multiplier.v in pipelined folder is the template for your design.
 
