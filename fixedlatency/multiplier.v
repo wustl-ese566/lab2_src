@@ -6,7 +6,7 @@
 * Email:                       Dengxue.Yan@wustl.edu
 *
 * Rev History:
-*       <Author>        <Date>        <Hardware>     <Version>        <Description>
+*       <Author>        <Date>        <Hardware>     <Version>        
 *     Dengxue Yan   2017-01-09 17:00       --           1.00             Create
 *****************************************************************************************************/
 `timescale 1ns / 1ps
@@ -14,7 +14,6 @@
 module multiplier(
     rst,
     clk,
-
     req,
     a,
     b,
@@ -24,7 +23,6 @@ module multiplier(
 
     input  rst;
     input  clk;
-
     input  req;
     input  [31:0] a;
     input  [31:0] b;

@@ -12,14 +12,25 @@
 `timescale 1ns / 1ps
 
 module multiplier(
-    a,
-    b,
-    y
+        .rst(rst),
+        .clk(clk),
+        .req(req),
+        .a(a),
+        .b(b),
+        .y(y),
+        .rdy(rdy)
     );
 
+    input  rst;
+    input  clk;
+    input  req;
     input  [31:0] a;
     input  [31:0] b;
+
     output [63:0] y;
+    output rdy;
+
+    assign rdy = req;
     
     wire [31:0] temp00 = b[0]  ? a: 32'h00000000; 
     wire [31:0] temp01 = b[1]  ? a: 32'h00000000; 

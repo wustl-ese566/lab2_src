@@ -6,7 +6,7 @@
 * Email:                       Dengxue.Yan@wustl.edu
 *
 * Rev History:
-*       <Author>        <Date>        <Hardware>     <Version>        <Description>
+*       <Author>        <Date>        <Hardware>     <Version>        
 *     Dengxue Yan   2016-09-09 23:00       --           1.00             Create
 *****************************************************************************************************/
 `timescale 1ns / 1ps
