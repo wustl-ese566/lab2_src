@@ -21,15 +21,15 @@ module multiplier(
     rdy
     );
 
-    input  rst;
-    input  clk;
-    input  req;
-    input  [31:0] a;
-    input  [31:0] b;
+    input  rst;// Reset
+    input  clk;// System clk
+    input  req;// Operation request
+    input  [31:0] a;// Operand a
+    input  [31:0] b;// Operand b
 
-    output [63:0] y;
+    output [63:0] y;// Multiplier output
     reg [63:0] y;
-    output rdy;
+    output rdy;// Multiplier ready
     reg rdy;
 
     reg [1:0] state = 2'b00;

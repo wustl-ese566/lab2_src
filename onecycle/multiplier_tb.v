@@ -16,13 +16,20 @@ module multiplier_tb();
     reg  [31:0] a;
     reg  [31:0] b;
     reg  clk;
+    reg  req;
+    reg  rst;
 
     wire [63:0] y;
+    wire rdy;
 
     multiplier DUT(
+        .rst(rst),
+        .clk(clk),
+        .req(req),
         .a(a),
         .b(b),
-        .y(y)
+        .y(y),
+        .rdy(rdy)
         );
 
     initial
@@ -30,27 +37,96 @@ module multiplier_tb();
         $dumpfile("multiplier.vcd");
         $dumpvars(0, multiplier_tb);
 
+        rst = 1;
         clk = 0;
+        a = 0;
+        b = 0;
+        req = 0;
+
+        // 1
+        #16
+        rst = 0;
         a = 1;
         b = 1;
+        req = 1;
 
-        #10
-        a = -1;
-        b = -1;
+        // 2
+        #1000
+        a = 100;
+        b = 100;
 
-        #10
-        a = 1;
-        b = -1;
+        // 3
+        #1000
+        a = 50;
+        b = 100;
 
-        #10
-        a = -1;
-        b = 1;
+        // 4
+        #1000
+        a = 12;
+        b = 30;
 
-        #10
-        a = -10;
-        b = 10;
+        // 5
+        #1000
+        a = 256;
+        b = 16;
 
-        #20
+        // 6
+        #1000
+        a = 256;
+        b = 1024;
+
+        // 7
+        #1000
+        a = 65536;
+        b = 65536;
+
+        // 8
+        #1000
+        a = 32'hFFFFFFFF;
+        b = 32'hFFFFFFFF;
+
+
+        // 9
+        #1000
+        a = 32'hFFFFFFFF;
+        b = 32'h0000FFFF;
+
+        // 10
+        #1000
+        a = 32'hFFFFFFFF;
+        b = 32'h0FFFFFFF;
+
+        // 11
+        #1000
+        a = 32'hFFFFFFFF;
+        b = 32'h00FFFFFF;
+
+        // 12
+        #1000
+        a = 32'hFFFFFFFF;
+        b = 32'h000FFFFF;
+
+        // 13
+        #1000
+        a = 32'hFFFFFFFF;
+        b = 32'h0000FFFF;
+
+        // 14
+        #1000
+        a = 32'hFFFFFFFF;
+        b = 32'h00000FFF;
+
+        // 15
+        #1000
+        a = 32'hFFFFFFFF;
+        b = 32'h000000FF;
+
+        // 16
+        #1000
+        a = 32'hFFFFFFFF;
+        b = 32'h0000000F;
+
+        #1000
         $finish;
     end
 
