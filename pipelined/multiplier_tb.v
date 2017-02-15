@@ -1,5 +1,5 @@
 /*****************************************************************************************************
-* Description:                 One cycle multiplier for Demo
+* Description:                 Test bench for multiplier
 *
 * Author:                      Dengxue Yan
 *
@@ -16,20 +16,27 @@ module multiplier_tb();
     reg  [31:0] a;
     reg  [31:0] b;
     reg  clk;
-    reg  req;
     reg  rst;
 
+    reg  req;
+    wire req_rdy;
+
     wire [63:0] y;
-    wire rdy;
+
+    wire resp_val;
+//    reg  resp_rdy;
+
 
     multiplier DUT(
         .rst(rst),
         .clk(clk),
-        .req(req),
-        .a(a),
-        .b(b),
-        .y(y),
-        .rdy(rdy)
+        .req_msg_a(a),
+        .req_msg_b(b),
+        .req_val(req),
+        .req_rdy(req_rdy),
+        .resp_msg(y),
+        .resp_val(resp_val),
+        .resp_rdy(1'b1)
         );
 
     initial

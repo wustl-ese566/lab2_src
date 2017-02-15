@@ -14,24 +14,29 @@
 module multiplier(
     rst,
     clk,
-    req,
-    a,
-    b,
-    y,
-    rdy
+    req_msg_a,
+    req_msg_b,
+    req_val,
+    req_rdy,
+    resp_msg,
+    resp_val,
+    resp_rdy
     );
 
     input  rst;// Reset
     input  clk;// System clk
-    input  req;// Operation request
-    input  [31:0] a;// Operand a
-    input  [31:0] b;// Operand b
+    input  [31:0] req_msg_a;// Operand a
+    input  [31:0] req_msg_b;// Operand b
+    input  req_val;// Operation request
+    output req_rdy;// New operands could be accepted, if it is deasserted, req_val and req_msg will be ignored
 
-    output [63:0] y;// Multiplier output
-    reg [63:0] y;
-    output rdy;// Multiplier ready
-    reg rdy;
+    output [63:0] resp_msg;// Multiplier result output
+    reg [63:0] resp_msg;
 
+    output resp_val;// Multiplier result valid flag
+    reg    resp_val;
+    input  resp_rdy;// Host ready to accept the result flag
+ 
     reg [1:0] state = 2'b00;
     reg [4:0] counter = 5'h00;
 
@@ -39,25 +44,27 @@ module multiplier(
     reg [31:0] b_temp = 0;
     reg [63:0] y_temp = 0;
 
+    assign req_rdy = resp_val;
+
     always @(posedge clk or posedge rst) begin
         if (rst) begin
             // reset
             a_temp <= 0;
             b_temp <= 0;
             y_temp <= 0;
-            y <= 0;
+            resp_msg <= 0;
             state <= 2'b00;
-            rdy <= 1'b0;
+            resp_val <= 1'b0;
         end
         else begin
             case (state)
             2'b00: begin
-                if (req) begin
-                    a_temp <= {32'h00000000, a};
-                    b_temp <= b;
+                if (req_val) begin
+                    a_temp <= {32'h00000000, req_msg_a};
+                    b_temp <= req_msg_b;
                     y_temp <= 0;
                     counter <= 5'h00;
-                    rdy <= 1'b0;
+                    resp_val <= 1'b0;
                     state <= 2'b01;
                 end
             end
@@ -74,8 +81,8 @@ module multiplier(
                 b_temp <= {1'b0, b_temp[31:1]};
             end
             2'b11: begin
-                y <= y_temp;
-                rdy <= 1'b1;
+                resp_msg <= y_temp;
+                resp_val <= 1'b1;
                 state <= 2'b00;
             end
             default: begin
