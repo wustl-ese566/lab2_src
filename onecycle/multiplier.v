@@ -34,7 +34,7 @@ module multiplier(
     output resp_val;// Multiplier result valid flag
     input  resp_rdy;// Host ready to accept the result flag
 
-    assign resp_val = 1'b1;
+    assign resp_val = req_val;
     assign req_rdy  = 1'b1;
 
     wire [31:0] temp00 = req_msg_b[0]  ? req_msg_a: 32'h00000000; 
